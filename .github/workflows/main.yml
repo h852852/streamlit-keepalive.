@@ -3,7 +3,7 @@ name: 🔁 Keep Streamlit App Alive
 on:
   # ── Scheduled: runs every 2 days at 08:00 UTC ──────────────────────────
   schedule:
-    - cron: '25 20 */1 * *'
+    - cron: '30 20 */1 * *'
 
   # ── Manual trigger from the GitHub Actions UI ──────────────────────────
   workflow_dispatch:
@@ -17,6 +17,8 @@ jobs:
   wake-up:
     name: Wake Up Streamlit App
     runs-on: ubuntu-latest
+    env:
+      TZ: America/New_York
     timeout-minutes: 10
 
     steps:
