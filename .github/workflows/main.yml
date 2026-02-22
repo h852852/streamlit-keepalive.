@@ -3,7 +3,7 @@ name: 🔁 Keep Streamlit App Alive
 on:
   # ── Scheduled: runs every 2 days at 08:00 UTC ──────────────────────────
   schedule:
-    - cron: '0 8:23 */1 * *'
+    - cron: '25 20 */1 * *'
 
   # ── Manual trigger from the GitHub Actions UI ──────────────────────────
   workflow_dispatch:
