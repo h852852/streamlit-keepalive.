@@ -1,0 +1,61 @@
+name: 🔁 Keep Streamlit App Alive
+
+on:
+  # ── Scheduled: runs every 2 days at 08:00 UTC ──────────────────────────
+  schedule:
+    - cron: '0 8 */1 * *'
+
+  # ── Manual trigger from the GitHub Actions UI ──────────────────────────
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: 'Why are you running this manually?'
+        required: false
+        default: 'Manual wake-up'
+
+jobs:
+  wake-up:
+    name: Wake Up Streamlit App
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      # ── 1. Checkout repo ───────────────────────────────────────────────
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      # ── 2. Set up Node.js ──────────────────────────────────────────────
+      - name: 🟢 Set up Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      # ── 3. Install dependencies ────────────────────────────────────────
+      - name: 📦 Install dependencies
+        run: npm ci
+
+      # ── 4. Install Playwright browser ─────────────────────────────────
+      - name: 🎭 Install Playwright Chromium
+        run: npx playwright install chromium --with-deps
+
+      # ── 5. Run the wake-up script ──────────────────────────────────────
+      - name: 🚀 Wake up Streamlit app
+        run: node wake_up.js
+
+      # ── 6. Summary ────────────────────────────────────────────────────
+      - name: 📋 Write job summary
+        if: always()
+        run: |
+          echo "## 🔁 Streamlit Keep-Alive Run" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Field | Value |" >> $GITHUB_STEP_SUMMARY
+          echo "|-------|-------|" >> $GITHUB_STEP_SUMMARY
+          echo "| 🕐 Time (UTC) | $(date -u '+%Y-%m-%d %H:%M:%S') |" >> $GITHUB_STEP_SUMMARY
+          echo "| 🌐 Target URL | https://nikhileshportfoliochatbot.streamlit.app/ |" >> $GITHUB_STEP_SUMMARY
+          echo "| 🖥️ Runner | ubuntu-latest |" >> $GITHUB_STEP_SUMMARY
+          if [ "${{ job.status }}" == "success" ]; then
+            echo "| ✅ Result | App is running |" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "| ❌ Result | Wake-up failed — check logs |" >> $GITHUB_STEP_SUMMARY
+          fi
