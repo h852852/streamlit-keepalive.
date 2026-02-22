@@ -41,7 +41,7 @@ Upload all these files to any GitHub repository (public or private).
 git init
 git add .
 git commit -m "Add Streamlit keep-alive automation"
-git remote add origin https://github.com/YOUR_USERNAME/streamlit-keepalive.git
+git remote add origin https://github.com/nikhileshnarkhede/streamlit-keepalive.git
 git push -u origin main
 ```
 
