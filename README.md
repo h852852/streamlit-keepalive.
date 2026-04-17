@@ -13,7 +13,7 @@ Automatically wakes up your sleeping Streamlit app using **GitHub Actions + Play
 
 ---
 
-## 📁 File Structure
+## 📁 File Structure 
 
 ```
 streamlit-keepalive/
