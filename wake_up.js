@@ -7,8 +7,8 @@
 const { chromium } = require('playwright');
 
 // ─── Config ────────────────────────────────────────────────────────────────
-const APP_URL     = 'https://nikhileshportfoliochatbot.streamlit.app/';
-const MAX_RETRIES = 3;
+const APP_URL     = 'https://h852852.streamlit.app/';
+const MAX_RETRIES = 10;
 const BOOT_WAIT   = 40_000;   // ms to wait after clicking wake-up
 const NAV_TIMEOUT = 60_000;   // ms for page.goto timeout
 // ───────────────────────────────────────────────────────────────────────────
